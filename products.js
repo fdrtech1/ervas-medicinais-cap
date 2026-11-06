@@ -23,7 +23,7 @@
       - icone:     ilustração do card. Opções:
                    "combo", "seda", "tabaco", "piteira", "dichavador",
                    "isqueiro", "bandeja", "salgadinho", "chocolate",
-                   "refri", "cookie", "bala"
+                   "refri", "cookie", "bala", "cigarro"
       - selo:      etiqueta opcional no canto do card ("" para nenhuma).
       - itens:     o que vem no combo. Cada item pode ser:
                    { id: "seda-king-brown", qtd: 3 }
@@ -115,6 +115,7 @@ const PRODUTOS = [
   { id: "seda-slim-branca", categoria: "tabacaria", nome: "Seda Slim Branca", descricao: "Livreto de folhas finas, tamanho slim.", preco: 3.5, icone: "seda", selo: "", itens: [] },
   { id: "tabaco-25", categoria: "tabacaria", nome: "Tabaco para Enrolar 25 g", descricao: "Pacote com fecho, corte fino.", preco: 18.9, icone: "tabaco", selo: "", itens: [] },
   { id: "tabaco-50", categoria: "tabacaria", nome: "Tabaco para Enrolar 50 g", descricao: "Pacote maior com fecho, corte fino.", preco: 34.9, icone: "tabaco", selo: "Rende mais", itens: [] },
+  { id: "cigarro-maco", categoria: "tabacaria", nome: "Cigarro de Papel (maço)", descricao: "Maço com 20 cigarros, marcas sortidas.", preco: 15.0, icone: "cigarro", selo: "", itens: [] },
   { id: "piteira-papel", categoria: "tabacaria", nome: "Piteira de Papel", descricao: "Livreto picotado, fácil de enrolar.", preco: 3.5, icone: "piteira", selo: "", itens: [] },
   { id: "piteira-vidro", categoria: "tabacaria", nome: "Piteira de Vidro", descricao: "Reutilizável e lavável.", preco: 12.0, icone: "piteira", selo: "", itens: [] },
   { id: "dichavador-metal", categoria: "tabacaria", nome: "Dichavador de Metal", descricao: "4 partes, dentes afiados e ímã na tampa.", preco: 35.0, icone: "dichavador", selo: "", itens: [] },

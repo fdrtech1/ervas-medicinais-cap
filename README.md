@@ -148,7 +148,7 @@ e, embaixo, os **produtos**. Cada produto é um bloco assim:
   o combo muda junto); item sem `id` leva `nome` e `preco` próprios.
   Ex.: `{ id: "seda-king-brown", qtd: 3 }` ou `{ nome: "Tabaco 120 g", qtd: 1, preco: 83.8 }`.
 - **Ícones disponíveis:** `combo`, `seda`, `tabaco`, `piteira`, `dichavador`,
-  `isqueiro`, `bandeja`, `salgadinho`, `chocolate`, `refri`, `cookie`, `bala`.
+  `isqueiro`, `bandeja`, `salgadinho`, `chocolate`, `refri`, `cookie`, `bala`, `cigarro`.
 - **Novo produto:** copie um bloco inteiro, cole depois do último, troque o `id`
   (ele não pode se repetir) e não esqueça a **vírgula** entre os blocos.
 - **Remover produto:** apague o bloco inteiro, do `{` até o `},`.
