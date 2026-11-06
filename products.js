@@ -52,7 +52,7 @@ const PRODUTOS = [
     icone: "combo",
     selo: "Pra começar",
     itens: [
-      { nome: "Tabaco para enrolar 20 g", qtd: 1, preco: 15.9 },
+      { id: "tabaco-25", qtd: 1 },
       { id: "seda-king-brown", qtd: 3 },
       { id: "piteira-papel", qtd: 1 },
       { id: "piteira-vidro", qtd: 1 },
@@ -95,7 +95,7 @@ const PRODUTOS = [
     icone: "combo",
     selo: "Completo",
     itens: [
-      { nome: "Tabaco para enrolar 100 g", qtd: 1, preco: 69.8 },
+      { nome: "Tabaco para enrolar 120 g", qtd: 1, preco: 83.8 }, // proporcional ao pacote de 50 g (R$ 34,90)
       { id: "seda-king-brown", qtd: 10 },
       { id: "piteira-vidro", qtd: 2 },
       { id: "piteira-papel", qtd: 3 },

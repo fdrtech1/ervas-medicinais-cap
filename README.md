@@ -146,7 +146,7 @@ e, embaixo, os **produtos**. Cada produto é um bloco assim:
 - **Combos:** use `preco: "soma"` e liste os itens. O preço do combo é a **soma
   automática** dos itens. Item com `id` usa o preço do produto avulso (mudou a seda,
   o combo muda junto); item sem `id` leva `nome` e `preco` próprios.
-  Ex.: `{ id: "seda-king-brown", qtd: 3 }` ou `{ nome: "Tabaco 20 g", qtd: 1, preco: 15.9 }`.
+  Ex.: `{ id: "seda-king-brown", qtd: 3 }` ou `{ nome: "Tabaco 120 g", qtd: 1, preco: 83.8 }`.
 - **Ícones disponíveis:** `combo`, `seda`, `tabaco`, `piteira`, `dichavador`,
   `isqueiro`, `bandeja`, `salgadinho`, `chocolate`, `refri`, `cookie`, `bala`.
 - **Novo produto:** copie um bloco inteiro, cole depois do último, troque o `id`
