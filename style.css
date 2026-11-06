@@ -665,3 +665,30 @@ p.destaque strong { color: var(--ouro); }
 /* Na subpágina de categoria, esconde o banner para mostrar os itens direto */
 body.filtrando .hero, body.filtrando .dica-ios { display: none; }
 body.filtrando .nav-categorias { margin-top: 0; }
+
+/* =========================================================
+   SLIDE "DE CELULAR" — barra de progresso, cards justos, banner curto
+   ========================================================= */
+.carrossel::after {
+  content: ""; display: block; height: 5px; margin: 2px 2px 0; border-radius: 5px;
+  background: linear-gradient(var(--cor), var(--cor)) no-repeat, var(--preto-3);
+  background-size: var(--vis, 35%) 100%;
+  background-position: calc(var(--prog, 0) * 100%) 0;
+  box-shadow: 0 0 10px color-mix(in srgb, var(--cor) 35%, transparent);
+}
+.carrossel.sem-rolagem::after, .dica-arraste { display: none; }
+.produto { border-radius: 16px; }
+.carrossel .lista-produtos { gap: 10px; padding-bottom: 12px; }
+@media (max-width: 639px) {
+  .carrossel .lista-produtos > li { flex-basis: 44%; }
+  .carrossel.destaque .lista-produtos > li { flex-basis: 80%; }
+  .hero { min-height: 0; }
+  .hero-conteudo { padding: 22px 18px 24px; }
+  .hero h1 { font-size: clamp(1.7rem, 8.5vw, 2.4rem); margin-bottom: 8px; }
+  .hero-texto { font-size: 0.95rem; margin-bottom: 12px; }
+  .hero-regras { gap: 6px; }
+  .hero-regras li { font-size: 0.78rem; padding: 5px 10px; }
+  .compacta .produto-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+  .secao-titulo { font-size: 1.55rem; }
+  .categoria-topo { margin-bottom: 6px; }
+}

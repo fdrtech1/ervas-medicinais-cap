@@ -48,7 +48,7 @@ const ENDERECO_RETIRADA = "Beco 260, Capelinha";
 
 // Pede para o cliente confirmar que tem 18 anos ou mais ao abrir o app.
 // (Venda de produtos de tabacaria para menores de 18 é proibida por lei.)
-const CONFIRMAR_IDADE = true;
+const CONFIRMAR_IDADE = false;
 
 // Horário de funcionamento para retirada (formato 24h "HH:MM").
 const HORA_ABERTURA = "15:00";
@@ -352,6 +352,7 @@ function renderProdutos() {
     .filter((c) => c.itens.length);
   const filtro = cats.some((c) => c.id === filtroCategoria) ? filtroCategoria : "";
   document.body.classList.toggle("filtrando", !!filtro);
+  setTimeout(() => $$(".carrossel .lista-produtos").forEach(atualizarProgresso), 0);
   $("#nav-categorias").innerHTML =
     `<a class="chip chip-todos${filtro ? "" : " ativo"}" href="#inicio">Tudo</a>` +
     cats.map((c) => `<a class="chip chip-${esc(c.cor)}${filtro === c.id ? " ativo" : ""}" href="#inicio/${esc(c.id)}">${esc(c.nome)} <span>${c.itens.length}</span></a>`).join("");
@@ -899,5 +900,20 @@ function iniciar() {
   configurarPWA();
   rota();
 }
+
+/* ---------- Barra de progresso dos slides ---------- */
+function atualizarProgresso(ul) {
+  const sec = ul.closest(".carrossel");
+  if (!sec) return;
+  const max = ul.scrollWidth - ul.clientWidth;
+  sec.style.setProperty("--vis", Math.min(100, (ul.clientWidth / ul.scrollWidth) * 100) + "%");
+  sec.style.setProperty("--prog", max > 0 ? ul.scrollLeft / max : 0);
+  sec.classList.toggle("sem-rolagem", max <= 2);
+}
+document.addEventListener("scroll", (e) => {
+  const ul = e.target;
+  if (ul instanceof Element && ul.matches(".carrossel .lista-produtos")) atualizarProgresso(ul);
+}, true);
+window.addEventListener("resize", () => $$(".carrossel .lista-produtos").forEach(atualizarProgresso));
 
 document.addEventListener("DOMContentLoaded", iniciar);
