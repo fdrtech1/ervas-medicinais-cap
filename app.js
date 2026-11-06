@@ -126,6 +126,25 @@ const ILUSTRACOES = {
 const folhaSVG = (cor) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C4.5 7 4 16.5 12 22.5c8-6 7.5-15.5 0-21z" fill="${cor}"/><path d="M12 4v18" stroke="rgba(0,0,0,.35)" stroke-width="1.2"/></svg>`;
 const CORES_RASTA = [VERDE, OURO, VERM, "#3ddc6f", "#ffe766"];
 
+// Bebidas: latas, latas altas (energético) e garrafas, cada uma com suas cores.
+const lata = (corpo, faixa) => `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M40 28h40l-2 6v62l2 6H40l2-6V34z" fill="${corpo}" stroke="#6b6b6b" stroke-width="2"/><ellipse cx="60" cy="27" rx="20" ry="5" fill="#d7d7d7"/><ellipse cx="60" cy="27" rx="7" ry="2" fill="#8a8a8a"/><path d="M42 58c10-8 26 8 36 0v12c-10 8-26-8-36 0z" fill="${faixa}"/><circle cx="50" cy="86" r="3" fill="${CREME}" opacity=".8"/><circle cx="58" cy="92" r="2" fill="${CREME}" opacity=".8"/><circle cx="68" cy="84" r="2.5" fill="${CREME}" opacity=".8"/></svg>`;
+const lataAlta = (corpo, raio) => `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M44 16h32l-2 6v80l2 6H44l2-6V22z" fill="${corpo}" stroke="#6b6b6b" stroke-width="2"/><ellipse cx="60" cy="15" rx="16" ry="4" fill="#d7d7d7"/><path d="M66 36L50 62h11l-7 24 18-30H60z" fill="${raio}"/><rect x="46" y="92" width="28" height="6" fill="${raio}"/></svg>`;
+const garrafa = (liquido, rotulo) => `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="52" y="8" width="16" height="9" rx="2" fill="${rotulo}"/><path d="M52 17h16v9l9 13v62a6 6 0 0 1-6 6H49a6 6 0 0 1-6-6V39l9-13z" fill="${liquido}" stroke="#6b6b6b" stroke-width="2"/><rect x="43" y="56" width="34" height="24" fill="${rotulo}"/><path d="M49 34l-3 7" stroke="#fff" stroke-width="3" stroke-linecap="round" opacity=".55"/></svg>`;
+Object.assign(ILUSTRACOES, {
+  "lata-vermelha": lata(VERM, CREME),
+  "lata-preta": lata("#1a1a1a", VERM),
+  "lata-laranja": lata("#ff8a00", "#1f4fbf"),
+  "lata-uva": lata("#6a2c91", "#ff8a00"),
+  "lata-verde": lata("#0a7a2f", VERM),
+  "energetico-preto": lataAlta("#1a1a1a", "#7ac142"),
+  "energetico-azul": lataAlta("#1e88e5", OURO),
+  "energetico-branco": lataAlta("#eeeeee", "#5f6b73"),
+  "energetico-rosa": lataAlta("#e64a8a", OURO),
+  "garrafa-agua": garrafa("#bfe7ff", "#1e88e5"),
+  "garrafa-cola": garrafa("#3b1d0e", VERM),
+  "garrafa-laranja": garrafa("#ff8a00", "#1f4fbf"),
+});
+
 /* ---------- Cálculos ---------- */
 const produto = (id) => PRODUTOS.find((p) => p.id === id);
 const qtd = (id) => estado.carrinho[id] || 0;

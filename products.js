@@ -23,7 +23,11 @@
       - icone:     ilustração do card. Opções:
                    "combo", "seda", "tabaco", "piteira", "dichavador",
                    "isqueiro", "bandeja", "salgadinho", "chocolate",
-                   "refri", "cookie", "bala", "cigarro"
+                   "refri", "cookie", "bala", "cigarro",
+                   bebidas: "lata-vermelha", "lata-preta", "lata-laranja",
+                   "lata-uva", "lata-verde", "energetico-preto",
+                   "energetico-azul", "energetico-branco", "energetico-rosa",
+                   "garrafa-agua", "garrafa-cola", "garrafa-laranja"
       - selo:      etiqueta opcional no canto do card ("" para nenhuma).
       - itens:     o que vem no combo. Cada item pode ser:
                    { id: "seda-king-brown", qtd: 3 }
@@ -37,7 +41,7 @@
 const CATEGORIAS = [
   { id: "combos", nome: "Combos", texto: "Tudo separado e embalado junto. O preço é a soma dos itens.", cor: "ouro", destaque: true },
   { id: "tabacaria", nome: "Tabacaria", texto: "Sedas, tabaco, piteiras e acessórios.", cor: "verde", destaque: false },
-  { id: "larica", nome: "Larica", texto: "Doce, salgado e gelado pra acompanhar.", cor: "vermelho", destaque: false },
+  { id: "larica", nome: "Larica", texto: "Doce, salgado, refri e energético pra acompanhar.", cor: "vermelho", destaque: false },
 ];
 
 const PRODUTOS = [
@@ -127,5 +131,18 @@ const PRODUTOS = [
   { id: "chocolate", categoria: "larica", nome: "Chocolate", descricao: "Barra ao leite de 90 g.", preco: 11.0, icone: "chocolate", selo: "", itens: [] },
   { id: "cookies", categoria: "larica", nome: "Cookies", descricao: "Pacote com gotas de chocolate.", preco: 6.5, icone: "cookie", selo: "", itens: [] },
   { id: "bala-goma", categoria: "larica", nome: "Bala de Goma", descricao: "Pacote de 150 g, sabores de fruta.", preco: 7.5, icone: "bala", selo: "", itens: [] },
-  { id: "refri-lata", categoria: "larica", nome: "Refri Lata", descricao: "Lata de 350 ml gelada, sabores sortidos.", preco: 6.5, icone: "refri", selo: "", itens: [] },
+
+  // ---------- BEBIDAS (dentro da Larica) ----------
+  { id: "refri-lata", categoria: "larica", nome: "Coca-Cola Lata 350 ml", descricao: "Lata gelada.", preco: 6.5, icone: "lata-vermelha", selo: "", itens: [] },
+  { id: "coca-zero-lata", categoria: "larica", nome: "Coca-Cola Zero Lata 350 ml", descricao: "Lata gelada, sem açúcar.", preco: 6.5, icone: "lata-preta", selo: "", itens: [] },
+  { id: "coca-2l", categoria: "larica", nome: "Coca-Cola 2 L", descricao: "Garrafa pra dividir com a galera.", preco: 12.9, icone: "garrafa-cola", selo: "", itens: [] },
+  { id: "fanta-laranja-lata", categoria: "larica", nome: "Fanta Laranja Lata 350 ml", descricao: "Lata gelada.", preco: 6.0, icone: "lata-laranja", selo: "", itens: [] },
+  { id: "fanta-uva-lata", categoria: "larica", nome: "Fanta Uva Lata 350 ml", descricao: "Lata gelada.", preco: 6.0, icone: "lata-uva", selo: "", itens: [] },
+  { id: "fanta-2l", categoria: "larica", nome: "Fanta Laranja 2 L", descricao: "Garrafa pra dividir.", preco: 10.9, icone: "garrafa-laranja", selo: "", itens: [] },
+  { id: "guarana-lata", categoria: "larica", nome: "Guaraná Antarctica Lata 350 ml", descricao: "Lata gelada.", preco: 5.5, icone: "lata-verde", selo: "", itens: [] },
+  { id: "monster-mango", categoria: "larica", nome: "Monster Mango Loco 473 ml", descricao: "Energético sabor manga.", preco: 11.0, icone: "energetico-azul", selo: "Top", itens: [] },
+  { id: "monster-tradicional", categoria: "larica", nome: "Monster Energy 473 ml", descricao: "Energético sabor tradicional.", preco: 11.0, icone: "energetico-preto", selo: "", itens: [] },
+  { id: "monster-ultra", categoria: "larica", nome: "Monster Ultra 473 ml", descricao: "Energético sem açúcar.", preco: 11.0, icone: "energetico-branco", selo: "", itens: [] },
+  { id: "monster-pipeline", categoria: "larica", nome: "Monster Pipeline Punch 473 ml", descricao: "Energético sabor frutas tropicais.", preco: 11.0, icone: "energetico-rosa", selo: "", itens: [] },
+  { id: "agua-500", categoria: "larica", nome: "Água Mineral 500 ml", descricao: "Sem gás, gelada.", preco: 3.5, icone: "garrafa-agua", selo: "", itens: [] },
 ];
