@@ -348,6 +348,19 @@ main { position: relative; z-index: 1; max-width: 1120px; margin: 0 auto; paddin
 }
 .produto-itens li:nth-child(3n + 2)::before { background: var(--verde-vivo); }
 .produto-itens li:nth-child(3n)::before { background: var(--vermelho-vivo); }
+.produto-itens.com-valor { margin-bottom: 0; gap: 0; }
+.produto-itens.com-valor li {
+  display: flex; justify-content: space-between; gap: 10px;
+  padding: 5px 0 5px 22px; border-bottom: 1px dashed var(--borda);
+}
+.produto-itens.com-valor li::before { top: 11px; }
+.produto-itens.com-valor strong { color: var(--texto); font-weight: 700; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.soma-itens {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  margin: 8px 0 16px; padding: 10px 12px; border-radius: 12px;
+  background: var(--cor-fundo); border: 1.5px solid var(--cor); font-weight: 800;
+}
+.soma-itens strong { color: var(--ouro); font-size: 1.1rem; font-weight: 900; }
 .produto-acao { margin-top: auto; min-height: 52px; display: flex; }
 .produto-acao > * { flex: 1; }
 

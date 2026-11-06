@@ -270,6 +270,36 @@ const iconeMais = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="
 
 const ilustracao = (p) => ILUSTRACOES[p.icone] || ILUSTRACOES.combo;
 
+// Combos: transforma cada item em { qtd, nome, preco } (puxando do produto
+// avulso quando o item tem "id") e, se preco for "soma", calcula o preço.
+function montarCombos() {
+  for (const p of PRODUTOS) {
+    if (!Array.isArray(p.itens)) p.itens = [];
+    p.itensCalc = p.itens.map((it) => {
+      if (typeof it === "string") return { qtd: 0, nome: it, preco: 0, texto: true };
+      const base = it.id ? PRODUTOS.find((x) => x.id === it.id) : null;
+      const qtd = Math.max(1, Number(it.qtd) || 1);
+      const preco = Number(it.preco ?? (base && typeof base.preco === "number" ? base.preco : 0)) || 0;
+      return { qtd, nome: it.nome || (base ? base.nome : it.id || "Item"), preco };
+    });
+    if (p.preco === "soma") {
+      p.preco = Math.round(p.itensCalc.reduce((s, it) => s + it.qtd * it.preco, 0) * 100) / 100;
+    }
+    p.preco = Number(p.preco) || 0;
+  }
+}
+
+function listaItens(p) {
+  if (!p.itensCalc || !p.itensCalc.length) return "";
+  const comValor = p.itensCalc.some((it) => !it.texto);
+  const linhas = p.itensCalc
+    .map((it) => it.texto
+      ? `<li><span>${esc(it.nome)}</span></li>`
+      : `<li><span>${it.qtd}× ${esc(it.nome)}</span><strong>${brl(it.qtd * it.preco)}</strong></li>`)
+    .join("");
+  return `<ul class="produto-itens${comValor ? " com-valor" : ""}">${linhas}</ul>${comValor ? `<p class="soma-itens"><span>Soma dos itens</span><strong>${brl(p.preco)}</strong></p>` : ""}`;
+}
+
 function cardProduto(p, i) {
   const economia = p.de && p.de > p.preco ? p.de - p.preco : 0;
   return `
@@ -288,7 +318,7 @@ function cardProduto(p, i) {
         </div>
         ${economia ? `<p class="economia">Economize ${brl(economia)}</p>` : ""}
         <p class="produto-desc">${esc(p.descricao)}</p>
-        ${p.itens && p.itens.length ? `<ul class="produto-itens">${p.itens.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
+        ${listaItens(p)}
         <div class="produto-acao" data-acao="${p.id}">${controleQtd(p)}</div>
       </div>
     </li>`;
@@ -819,6 +849,7 @@ function confirmarIdade() {
 
 /* ---------- Início ---------- */
 function iniciar() {
+  montarCombos();
   carregar();
   // Textos que vêm da configuração
   $("#regra-minimo").textContent = `Pedido mínimo ${brl(PEDIDO_MINIMO)}`;
@@ -827,6 +858,9 @@ function iniciar() {
   $("#faixa-marca").style.left = `${(PEDIDO_MINIMO / PEDIDO_MAXIMO) * 100}%`;
   $("#taxa-entrega-txt").textContent = `Taxa fixa de ${brl(TAXA_ENTREGA)}`;
   $("#endereco-loja").textContent = textoEnderecoLoja();
+  const formas = ["Pix", LINK_CARTAO && "cartão", LINK_CRIPTO && "cripto"].filter(Boolean);
+  const textoFormas = formas.length > 1 ? formas.slice(0, -1).join(", ") + " ou " + formas[formas.length - 1] : formas[0];
+  $$(".formas-pagamento").forEach((el) => (el.textContent = textoFormas));
   confirmarIdade();
   $("#cartao-minimo").textContent = brl(MINIMO_CARTAO);
   $("#ano").textContent = new Date().getFullYear();

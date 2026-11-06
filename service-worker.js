@@ -6,7 +6,7 @@
    (ex.: "v2", "v3"...). Assim o celular dos clientes baixa a
    versão nova em vez de ficar com a antiga guardada.
    ========================================================= */
-const VERSAO = "ervas-cap-v4";
+const VERSAO = "ervas-cap-v5";
 const CACHE_FONTES = "ervas-cap-fontes";
 
 const ARQUIVOS = [

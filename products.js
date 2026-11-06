@@ -18,59 +18,96 @@
       - nome:      nome que aparece no cardápio.
       - descricao: texto curto. Não escreva promessas de efeito no corpo.
       - preco:     número com PONTO decimal. Ex.: 6 = R$ 6,00 | 18.9 = R$ 18,90
-      - de:        (opcional, combos) quanto custaria comprar tudo separado.
-                   Aparece riscado ao lado do preço. Use 0 para esconder.
+                   Nos COMBOS use preco: "soma" — o app calcula sozinho
+                   somando o preço de todos os itens do combo.
       - icone:     ilustração do card. Opções:
                    "combo", "seda", "tabaco", "piteira", "dichavador",
                    "isqueiro", "bandeja", "salgadinho", "chocolate",
                    "refri", "cookie", "bala"
       - selo:      etiqueta opcional no canto do card ("" para nenhuma).
-      - itens:     lista do que vem (usada nos combos). [] = nada.
+      - itens:     o que vem no combo. Cada item pode ser:
+                   { id: "seda-king-brown", qtd: 3 }
+                       → usa o nome e o preço do produto avulso com esse id
+                         (mudou o preço da seda? o combo muda junto)
+                   { nome: "Tabaco para enrolar 20 g", qtd: 1, preco: 15.9 }
+                       → item que não é vendido separado, com preço próprio
+                   Produtos avulsos usam itens: [].
    ========================================================= */
 
 const CATEGORIAS = [
-  { id: "combos", nome: "Combos", texto: "Tudo separado pra você, com desconto no preço fechado.", cor: "ouro", destaque: true },
+  { id: "combos", nome: "Combos", texto: "Tudo separado e embalado junto. O preço é a soma dos itens.", cor: "ouro", destaque: true },
   { id: "tabacaria", nome: "Tabacaria", texto: "Sedas, tabaco, piteiras e acessórios.", cor: "verde", destaque: false },
   { id: "larica", nome: "Larica", texto: "Doce, salgado e gelado pra acompanhar.", cor: "vermelho", destaque: false },
 ];
 
 const PRODUTOS = [
   // ---------- COMBOS ----------
-  // Kingston: tabaco 20 g (~15,90) + 3×6,00 + 3,50 + 12,00 + 5,00 + 9,90 + 11,00 + 6,50 + 6,50 = 88,30 (sem desconto: "Economize" não aparece)
+  // O preço de cada combo é a soma dos itens (preco: "soma").
   {
     id: "combo-kingston",
     categoria: "combos",
     nome: "Combo Kingston",
     descricao: "O essencial pra enrolar, com uma larica completa junto.",
-    preco: 100.0,
-    de: 88.3,
+    preco: "soma",
     icone: "combo",
     selo: "Pra começar",
-    itens: ["Tabaco para enrolar 20 g", "3 sedas King Size Brown", "Piteira de papel + piteira de vidro", "Isqueiro", "Salgadinho, chocolate, cookies e refri lata"],
+    itens: [
+      { nome: "Tabaco para enrolar 20 g", qtd: 1, preco: 15.9 },
+      { id: "seda-king-brown", qtd: 3 },
+      { id: "piteira-papel", qtd: 1 },
+      { id: "piteira-vidro", qtd: 1 },
+      { id: "isqueiro", qtd: 1 },
+      { id: "salgadinho", qtd: 1 },
+      { id: "chocolate", qtd: 1 },
+      { id: "cookies", qtd: 1 },
+      { id: "refri-lata", qtd: 1 },
+    ],
   },
-  // Montego Bay: 35 + 30 + 34,90 + 18,90 + 5×6 + 12 + 2×3,50 + 2×5 + 2×9,90 + 11 + 6,50 + 2×6,50 = 228,10
   {
     id: "combo-montego-bay",
     categoria: "combos",
     nome: "Combo Montego Bay",
     descricao: "Com dichavador e bandeja de metal, mais tabaco e larica pra dividir.",
-    preco: 200.0,
-    de: 228.1,
+    preco: "soma",
     icone: "combo",
     selo: "Mais pedido",
-    itens: ["Tabaco para enrolar 50 g + 25 g", "5 sedas King Size Brown", "Piteira de vidro + 2 de papel", "Dichavador de metal", "Bandeja de metal", "2 isqueiros", "2 salgadinhos, chocolate, cookies e 2 refris"],
+    itens: [
+      { id: "tabaco-50", qtd: 1 },
+      { id: "tabaco-25", qtd: 1 },
+      { id: "seda-king-brown", qtd: 5 },
+      { id: "piteira-vidro", qtd: 1 },
+      { id: "piteira-papel", qtd: 2 },
+      { id: "dichavador-metal", qtd: 1 },
+      { id: "bandeja-metal", qtd: 1 },
+      { id: "isqueiro", qtd: 2 },
+      { id: "salgadinho", qtd: 2 },
+      { id: "chocolate", qtd: 1 },
+      { id: "cookies", qtd: 1 },
+      { id: "refri-lata", qtd: 2 },
+    ],
   },
-  // Zion: 35 + 30 + 2×34,90 (100 g) + 10×6 + 2×12 + 3×3,50 + 3×5 + 4×9,90 + 3×11 + 2×6,50 + 2×7,50 + 6×6,50 = 383,90 (sem desconto: "Economize" não aparece)
   {
     id: "combo-zion",
     categoria: "combos",
     nome: "Combo Zion",
     descricao: "O kit completo da casa: acessórios, estoque de tabaco e larica de respeito.",
-    preco: 400.0,
-    de: 383.9,
+    preco: "soma",
     icone: "combo",
     selo: "Completo",
-    itens: ["Tabaco para enrolar 100 g", "10 sedas King Size Brown", "2 piteiras de vidro + 3 de papel", "Dichavador de metal", "Bandeja de metal", "3 isqueiros", "4 salgadinhos, 3 chocolates, 2 cookies, 2 balas de goma e 6 refris"],
+    itens: [
+      { nome: "Tabaco para enrolar 100 g", qtd: 1, preco: 69.8 },
+      { id: "seda-king-brown", qtd: 10 },
+      { id: "piteira-vidro", qtd: 2 },
+      { id: "piteira-papel", qtd: 3 },
+      { id: "dichavador-metal", qtd: 1 },
+      { id: "bandeja-metal", qtd: 1 },
+      { id: "isqueiro", qtd: 3 },
+      { id: "salgadinho", qtd: 4 },
+      { id: "chocolate", qtd: 3 },
+      { id: "cookies", qtd: 2 },
+      { id: "bala-goma", qtd: 2 },
+      { id: "refri-lata", qtd: 6 },
+    ],
   },
 
   // ---------- TABACARIA ----------

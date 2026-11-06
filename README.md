@@ -143,8 +143,10 @@ e, embaixo, os **produtos**. Cada produto é um bloco assim:
 ```
 
 - **Preço:** use ponto, não vírgula → `18.9` = R$ 18,90.
-- **Combos:** o campo `de` é quanto custaria tudo separado; o app mostra
-  riscado e calcula o “Economize R$ …”. Os valores atuais já batem com a soma dos itens.
+- **Combos:** use `preco: "soma"` e liste os itens. O preço do combo é a **soma
+  automática** dos itens. Item com `id` usa o preço do produto avulso (mudou a seda,
+  o combo muda junto); item sem `id` leva `nome` e `preco` próprios.
+  Ex.: `{ id: "seda-king-brown", qtd: 3 }` ou `{ nome: "Tabaco 20 g", qtd: 1, preco: 15.9 }`.
 - **Ícones disponíveis:** `combo`, `seda`, `tabaco`, `piteira`, `dichavador`,
   `isqueiro`, `bandeja`, `salgadinho`, `chocolate`, `refri`, `cookie`, `bala`.
 - **Novo produto:** copie um bloco inteiro, cole depois do último, troque o `id`
