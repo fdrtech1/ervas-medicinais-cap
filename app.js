@@ -11,29 +11,29 @@
 //   celular ....... "+5511999999999"   (com +55 e DDD, só números)
 //   CPF/CNPJ ...... "12345678900"      (só números)
 //   aleatória ..... "123e4567-e12b-12d1-a456-426655440000"
-const CHAVE_PIX = "SEU-EMAIL-AQUI@exemplo.com";
+const CHAVE_PIX = "+5533991423328";
 
 // Nome de quem recebe o Pix (aparece no app do banco do cliente).
 // Sem acentos, até 25 letras. Use o mesmo nome da conta.
-const NOME_RECEBEDOR = "ERVAS MEDICINAIS CAP";
+const NOME_RECEBEDOR = "FERNANDO DANIEL";
 
 // Cidade de quem recebe o Pix. Sem acentos, até 15 letras.
-const CIDADE = "SAO PAULO";
+const CIDADE = "CAPELINHA";
 
 // Link de pagamento com cartão (Mercado Pago, InfinitePay, PagSeguro...).
 // Deixe "" (vazio) para esconder a opção de cartão.
-const LINK_CARTAO = "https://link.mercadopago.com.br/SEU-LINK";
+const LINK_CARTAO = "https://link.mercadopago.com.br/ervcap";
 
 // Pedido mínimo para pagar com cartão, em reais.
 const MINIMO_CARTAO = 100.0;
 
 // Link de pagamento com criptomoeda (NOWPayments, Binance Pay...).
 // Deixe "" (vazio) para esconder a opção de cripto.
-const LINK_CRIPTO = "https://nowpayments.io/payment/?iid=SEU-ID";
+const LINK_CRIPTO = "";
 
 // WhatsApp que recebe os pedidos: 55 + DDD + número, só números.
 // Ex.: (11) 91234-5678  →  "5511912345678"
-const WHATSAPP_VENDEDOR = "5511999999999";
+const WHATSAPP_VENDEDOR = "5511912130716";
 
 // Taxa fixa de entrega, em reais (use ponto: 20.0 = R$ 20,00).
 const TAXA_ENTREGA = 20.0;
@@ -44,15 +44,15 @@ const PEDIDO_MAXIMO = 1000.0;
 
 // Endereço para retirada no local (aparece para o cliente).
 // Deixe "" (vazio) para combinar o endereço pelo WhatsApp.
-const ENDERECO_RETIRADA = "";
+const ENDERECO_RETIRADA = "Beco 260, Capelinha";
 
 // Pede para o cliente confirmar que tem 18 anos ou mais ao abrir o app.
 // (Venda de produtos de tabacaria para menores de 18 é proibida por lei.)
 const CONFIRMAR_IDADE = true;
 
 // Horário de funcionamento para retirada (formato 24h "HH:MM").
-const HORA_ABERTURA = "09:00";
-const HORA_FECHAMENTO = "18:00";
+const HORA_ABERTURA = "15:00";
+const HORA_FECHAMENTO = "20:00";
 
 // Dias em que há retirada: 0 = domingo, 1 = segunda ... 6 = sábado.
 const DIAS_FUNCIONAMENTO = [1, 2, 3, 4, 5, 6];
