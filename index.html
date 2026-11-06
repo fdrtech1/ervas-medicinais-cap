@@ -4,9 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Ervas Medicinais Cap</title>
-  <meta name="description" content="Chás e ervas selecionadas. Monte seu pedido e envie pelo WhatsApp.">
-  <meta name="theme-color" content="#2f4a2a">
-  <meta name="color-scheme" content="light">
+  <meta name="description" content="Tabacaria e larica: sedas, tabaco, acessórios e combos. Monte seu pedido e envie pelo WhatsApp.">
+  <meta name="theme-color" content="#0b0b09">
+  <meta name="color-scheme" content="dark">
 
   <!-- PWA -->
   <link rel="manifest" href="manifest.json">
@@ -15,17 +15,37 @@
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="Ervas Cap">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
   <!-- Fontes gratuitas do Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bowlby+One&family=Rubik:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
 </head>
 <body data-tela="inicio">
   <a class="pular" href="#app">Pular para o conteúdo</a>
+
+  <!-- Confirmação de idade (18+) -->
+  <div id="idade" class="idade" role="dialog" aria-modal="true" aria-labelledby="idade-titulo" hidden>
+    <div class="idade-caixa">
+      <div class="faixa-rasta" aria-hidden="true"></div>
+      <svg class="idade-bandeira" viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><rect width="300" height="150" fill="#0b0b09"/><path d="M0 0h300L150 75zM0 150h300L150 75z" fill="#009b3a"/><path d="M0 0l300 150M300 0L0 150" stroke="#fed100" stroke-width="24"/></svg>
+      <div id="idade-pergunta">
+        <h2 id="idade-titulo">Você tem 18 anos ou mais?</h2>
+        <p>Este app vende produtos de tabacaria. A venda é proibida para menores de 18 anos.</p>
+        <div class="idade-botoes">
+          <button type="button" id="idade-sim" class="btn btn-primario">Sim, tenho 18+</button>
+          <button type="button" id="idade-nao" class="btn btn-secundario">Não</button>
+        </div>
+      </div>
+      <div id="idade-bloqueio" hidden>
+        <h2>Acesso não permitido</h2>
+        <p>Desculpe, a venda de produtos de tabacaria é proibida para menores de 18 anos.</p>
+      </div>
+    </div>
+  </div>
 
   <!-- Folhas caindo (só na tela inicial) -->
   <div id="folhas-fundo" aria-hidden="true"></div>
@@ -33,9 +53,13 @@
   <header class="topo">
     <a href="#inicio" class="marca" aria-label="Ervas Medicinais Cap — início">
       <svg class="marca-icone" viewBox="0 0 48 48" aria-hidden="true">
-        <circle cx="24" cy="24" r="22" fill="#4a8a3f"/>
-        <path d="M13 35c-1-13 8-21 22-22 1 14-8 22-22 22z" fill="#d6e8c4"/>
-        <path d="M13 35c6-6 12-12 20-20" stroke="#2f4a2a" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+        <defs><clipPath id="c-marca"><circle cx="24" cy="24" r="22"/></clipPath></defs>
+        <g clip-path="url(#c-marca)">
+          <rect width="48" height="48" fill="#0b0b09"/>
+          <path d="M0 0h48L24 24zM0 48h48L24 24z" fill="#009b3a"/>
+          <path d="M0 0l48 48M48 0L0 48" stroke="#fed100" stroke-width="7"/>
+        </g>
+        <circle cx="24" cy="24" r="22" fill="none" stroke="#fed100" stroke-width="2.5"/>
       </svg>
       <span class="marca-texto">Ervas Medicinais <em>Cap</em></span>
     </a>
@@ -50,6 +74,7 @@
       </a>
     </div>
   </header>
+  <div class="faixa-rasta faixa-topo" aria-hidden="true"></div>
 
   <nav class="etapas" id="etapas" aria-label="Etapas do pedido" hidden>
     <ol>
@@ -66,19 +91,21 @@
     <!-- 1. TELA INICIAL ===================================== -->
     <section class="tela" data-tela="inicio">
       <div class="hero">
-        <svg class="hero-ramo" viewBox="0 0 200 200" aria-hidden="true">
-          <path d="M100 196C96 140 104 80 100 8" stroke="#6fa95e" stroke-width="4" fill="none" stroke-linecap="round"/>
-          <g fill="#4a8a3f"><ellipse cx="76" cy="150" rx="28" ry="11" transform="rotate(-30 76 150)"/><ellipse cx="126" cy="132" rx="28" ry="11" transform="rotate(30 126 132)"/><ellipse cx="78" cy="104" rx="24" ry="10" transform="rotate(-34 78 104)"/><ellipse cx="122" cy="86" rx="24" ry="10" transform="rotate(34 122 86)"/></g>
-          <g fill="#6fa95e"><ellipse cx="82" cy="60" rx="18" ry="8" transform="rotate(-38 82 60)"/><ellipse cx="118" cy="44" rx="16" ry="7" transform="rotate(38 118 44)"/><ellipse cx="100" cy="18" rx="7" ry="14"/></g>
+        <svg class="hero-bandeira" viewBox="0 0 300 150" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+          <rect width="300" height="150" fill="#0b0b09"/>
+          <path d="M0 0h300L150 75zM0 150h300L150 75z" fill="#009b3a"/>
+          <path d="M0 0l300 150M300 0L0 150" stroke="#fed100" stroke-width="22"/>
         </svg>
-        <p class="hero-sobre">Chás &amp; ervas selecionadas</p>
-        <h1>Ervas secas para o seu chá de todo dia</h1>
-        <p class="hero-texto">Escolha seu kit, monte o pedido em poucos toques e envie pelo WhatsApp. Retire no local ou receba em casa.</p>
-        <ul class="hero-regras">
-          <li id="regra-minimo">Pedido mínimo</li>
-          <li>Pix, cartão ou cripto</li>
-          <li>Retirada ou entrega</li>
-        </ul>
+        <div class="hero-conteudo">
+          <p class="hero-sobre"><span>Tabacaria</span> <span>Larica</span> <span>One Love</span></p>
+          <h1>Sedas, tabaco e larica <em>na palma da mão</em></h1>
+          <p class="hero-texto">Monte seu pedido, pague no Pix, cartão ou cripto e mande direto no WhatsApp. Retire no local ou receba em casa.</p>
+          <ul class="hero-regras">
+            <li id="regra-minimo">Pedido mínimo</li>
+            <li>Pix, cartão ou cripto</li>
+            <li>Retirada ou entrega</li>
+          </ul>
+        </div>
       </div>
 
       <div id="dica-ios" class="dica-ios" hidden>
@@ -86,8 +113,8 @@
         <button type="button" id="fechar-dica-ios" class="link">Entendi</button>
       </div>
 
-      <h2 class="secao-titulo">Nossos kits</h2>
-      <ul id="lista-produtos" class="lista-produtos"></ul>
+      <nav id="nav-categorias" class="nav-categorias" aria-label="Categorias"></nav>
+      <div id="lista-produtos"></div>
     </section>
 
     <!-- 2. CARRINHO ========================================= -->
@@ -96,7 +123,7 @@
 
       <div id="carrinho-vazio" class="vazio">
         <div class="vazio-arte" aria-hidden="true">
-          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="#e6efda"/><path d="M34 48h52l-4 40a6 6 0 0 1-6 5H44a6 6 0 0 1-6-5z" fill="#fbf7ee" stroke="#2f4a2a" stroke-width="3"/><path d="M47 52V42a13 13 0 0 1 26 0v10" stroke="#2f4a2a" stroke-width="3" fill="none" stroke-linecap="round"/><path d="M60 80c-8 0-10-8-5-14 7 1 10 8 5 14z" fill="#4a8a3f"/></svg>
+          <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="#15150f" stroke="#fed100" stroke-width="3"/><path d="M34 48h52l-4 40a6 6 0 0 1-6 5H44a6 6 0 0 1-6-5z" fill="#009b3a"/><path d="M47 52V42a13 13 0 0 1 26 0v10" stroke="#fed100" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M38 66h44" stroke="#fed100" stroke-width="6"/><path d="M39 74h42" stroke="#e4002b" stroke-width="6"/></svg>
         </div>
         <p>Seu carrinho está vazio.</p>
         <a href="#inicio" class="btn btn-primario">Ver os kits</a>
@@ -143,7 +170,7 @@
         <label class="opcao">
           <input type="radio" name="modo" value="entrega">
           <span class="opcao-corpo">
-            <svg class="opcao-icone" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 12h24v20H4zM28 20h8l6 7v5H28z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><circle cx="12" cy="35" r="4" fill="#fbf7ee" stroke="currentColor" stroke-width="3"/><circle cx="35" cy="35" r="4" fill="#fbf7ee" stroke="currentColor" stroke-width="3"/></svg>
+            <svg class="opcao-icone" viewBox="0 0 48 48" aria-hidden="true"><path d="M4 12h24v20H4zM28 20h8l6 7v5H28z" fill="none" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/><circle cx="12" cy="35" r="4" fill="#15150f" stroke="currentColor" stroke-width="3"/><circle cx="35" cy="35" r="4" fill="#15150f" stroke="currentColor" stroke-width="3"/></svg>
             <span><strong>Entrega</strong><small id="taxa-entrega-txt">Taxa fixa</small></span>
           </span>
         </label>
@@ -253,7 +280,7 @@
     <!-- 6. CONFIRMAÇÃO ====================================== -->
     <section class="tela" data-tela="confirmacao" hidden>
       <div class="sucesso-arte" aria-hidden="true">
-        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="54" fill="#4a8a3f"/><path d="M60 20c-22 16-24 50 0 80 24-30 22-64 0-80z" fill="#6fa95e"/><path d="M42 62l12 12 24-26" stroke="#fbf7ee" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 120 120"><defs><clipPath id="c-ok"><circle cx="60" cy="60" r="54"/></clipPath></defs><g clip-path="url(#c-ok)"><rect width="120" height="120" fill="#0b0b09"/><path d="M0 0h120L60 60zM0 120h120L60 60z" fill="#009b3a"/><path d="M0 0l120 120M120 0L0 120" stroke="#fed100" stroke-width="16"/></g><circle cx="60" cy="60" r="54" fill="none" stroke="#fed100" stroke-width="4"/><circle cx="60" cy="60" r="28" fill="#0b0b09"/><path d="M47 61l9 9 18-20" stroke="#fed100" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </div>
       <h1 class="titulo-tela centro" tabindex="-1">Pedido pronto para enviar!</h1>
       <p class="centro subtitulo">Confira o resumo e toque no botão verde para mandar o pedido pelo WhatsApp.</p>
@@ -279,8 +306,10 @@
   </div>
 
   <footer class="rodape">
-    <p>Ervas Medicinais Cap · <span id="ano"></span></p>
-    <p>Produtos vendidos como chás e ervas secas para infusão.</p>
+    <div class="faixa-rasta" aria-hidden="true"></div>
+    <p><strong>Ervas Medicinais Cap</strong> · <span id="ano"></span></p>
+    <p class="aviso-legal">Venda proibida para menores de 18 anos.</p>
+    <p>O Ministério da Saúde adverte: fumar causa câncer e outras doenças.</p>
   </footer>
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>

@@ -43,7 +43,12 @@ const PEDIDO_MINIMO = 100.0;
 const PEDIDO_MAXIMO = 1000.0;
 
 // Endereço para retirada no local (aparece para o cliente).
-const ENDERECO_RETIRADA = "Rua Exemplo, 123 — Centro";
+// Deixe "" (vazio) para combinar o endereço pelo WhatsApp.
+const ENDERECO_RETIRADA = "";
+
+// Pede para o cliente confirmar que tem 18 anos ou mais ao abrir o app.
+// (Venda de produtos de tabacaria para menores de 18 é proibida por lei.)
+const CONFIRMAR_IDADE = true;
 
 // Horário de funcionamento para retirada (formato 24h "HH:MM").
 const HORA_ABERTURA = "09:00";
@@ -101,13 +106,24 @@ function carregar() {
   } catch (e) { /* ignora */ }
 }
 
-/* ---------- Ilustrações SVG ---------- */
+/* ---------- Ilustrações SVG (cores da Jamaica: verde, ouro, preto + vermelho rasta) ---------- */
+const VERDE = "#009b3a", OURO = "#fed100", VERM = "#e4002b", PRETO = "#0b0b09", CREME = "#fff8e1";
 const ILUSTRACOES = {
-  folha: `<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="#d6e8c4"/><path d="M28 90C27 52 52 28 94 25c2 40-24 66-66 65z" fill="#4a8a3f"/><path d="M28 90C46 72 64 54 88 31" stroke="#24431f" stroke-width="3.5" fill="none" stroke-linecap="round"/><path d="M47 71l-3-15M58 60l-2-15M69 49l-1-13M47 71l15 3M58 60l15 3M69 49l13 2" stroke="#24431f" stroke-width="2.4" stroke-linecap="round"/><path d="M28 90l-7 8" stroke="#24431f" stroke-width="3.5" stroke-linecap="round"/></svg>`,
-  ramo: `<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="#f0dccb"/><path d="M60 104c-3-26 1-56 0-84" stroke="#2f4a2a" stroke-width="3.5" fill="none" stroke-linecap="round"/><g fill="#4a8a3f"><ellipse cx="45" cy="80" rx="15" ry="6.5" transform="rotate(-28 45 80)"/><ellipse cx="75" cy="72" rx="15" ry="6.5" transform="rotate(28 75 72)"/><ellipse cx="46" cy="58" rx="13" ry="6" transform="rotate(-32 46 58)"/><ellipse cx="74" cy="50" rx="13" ry="6" transform="rotate(32 74 50)"/><ellipse cx="49" cy="38" rx="10" ry="5" transform="rotate(-36 49 38)"/></g><g fill="#6fa95e"><ellipse cx="71" cy="31" rx="9" ry="4.5" transform="rotate(36 71 31)"/><ellipse cx="60" cy="20" rx="4.5" ry="8"/></g><circle cx="82" cy="88" r="5" fill="#c8734a"/><circle cx="90" cy="80" r="3.5" fill="#c8734a"/></svg>`,
-  xicara: `<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="54" fill="#e6efda"/><path d="M44 40c-4-6 4-10 0-16M58 40c-4-6 4-10 0-16M72 40c-4-6 4-10 0-16" stroke="#7a8f6e" stroke-width="3" fill="none" stroke-linecap="round"/><ellipse cx="58" cy="94" rx="38" ry="7" fill="#d9c9a3"/><path d="M28 50h60v8c0 19-13 32-30 32S28 77 28 58z" fill="#c8734a"/><path d="M28 50h60v6H28z" fill="#a9502c"/><path d="M88 58c12-2 16 12 2 18" stroke="#a9502c" stroke-width="5" fill="none" stroke-linecap="round"/><path d="M44 68c2-10 12-14 22-12-2 10-12 15-22 12z" fill="#e8f2dc"/><path d="M44 68c6-4 12-7 22-12" stroke="#4a8a3f" stroke-width="1.8" fill="none"/></svg>`,
+  combo: `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="70" y="18" width="18" height="40" rx="5" fill="${VERM}"/><rect x="70" y="30" width="18" height="10" fill="${OURO}"/><g transform="rotate(-14 46 40)"><rect x="32" y="14" width="30" height="16" fill="${CREME}"/><rect x="28" y="24" width="38" height="30" rx="4" fill="${VERDE}"/><rect x="28" y="24" width="38" height="9" rx="4" fill="${OURO}"/></g><path d="M18 52h84l-6 44a6 6 0 0 1-6 5H30a6 6 0 0 1-6-5z" fill="${OURO}"/><path d="M18 52h84v10H18z" fill="${PRETO}"/><path d="M22 66l38 30 38-30M22 96l38-30 38 30" stroke="${VERDE}" stroke-width="6" fill="none"/><path d="M18 52l42 0" stroke="${VERM}" stroke-width="3"/></svg>`,
+  seda: `<svg viewBox="0 0 120 120" aria-hidden="true"><g transform="rotate(-12 60 60)"><rect x="36" y="18" width="48" height="28" rx="2" fill="${CREME}"/><path d="M40 26h40M40 33h40" stroke="#c9bf9c" stroke-width="2"/><rect x="28" y="36" width="64" height="54" rx="7" fill="${VERDE}"/><rect x="28" y="36" width="64" height="15" rx="7" fill="${OURO}"/><rect x="28" y="44" width="64" height="7" fill="${OURO}"/><path d="M40 66h40M40 77h26" stroke="${PRETO}" stroke-width="6" stroke-linecap="round"/></g></svg>`,
+  tabaco: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M40 34c3-9 8-9 10 0M56 30c3-10 9-10 11 0M72 34c3-8 7-8 9 0" stroke="#c88a4a" stroke-width="4" fill="none" stroke-linecap="round"/><path d="M28 40q32-14 64 0l6 48q-38 14-76 0z" fill="#7a4b22"/><path d="M28 40q32-14 64 0" stroke="${OURO}" stroke-width="6" fill="none" stroke-linecap="round"/><rect x="40" y="56" width="40" height="22" rx="5" fill="${OURO}"/><path d="M48 67h24" stroke="${PRETO}" stroke-width="5" stroke-linecap="round"/><path d="M26 82q34 12 70 0" stroke="${VERDE}" stroke-width="5" fill="none"/></svg>`,
+  piteira: `<svg viewBox="0 0 120 120" aria-hidden="true"><rect x="16" y="36" width="44" height="58" rx="5" fill="${VERM}"/><rect x="16" y="36" width="44" height="14" rx="5" fill="${OURO}"/><rect x="16" y="44" width="44" height="6" fill="${OURO}"/><path d="M26 64h24M26 74h16" stroke="${CREME}" stroke-width="5" stroke-linecap="round"/><rect x="68" y="28" width="16" height="56" rx="8" fill="${CREME}" stroke="${PRETO}" stroke-width="2"/><rect x="88" y="38" width="16" height="56" rx="8" fill="#bfe9cf" stroke="${PRETO}" stroke-width="2"/><path d="M76 36v40M96 46v40" stroke="#9c9478" stroke-width="2" stroke-dasharray="4 4"/></svg>`,
+  dichavador: `<svg viewBox="0 0 120 120" aria-hidden="true"><ellipse cx="60" cy="86" rx="34" ry="11" fill="#5e5e5e"/><rect x="26" y="40" width="68" height="46" fill="#9a9a9a"/><rect x="26" y="54" width="68" height="7" fill="${VERDE}"/><rect x="26" y="63" width="68" height="7" fill="${OURO}"/><rect x="26" y="72" width="68" height="7" fill="${VERM}"/><ellipse cx="60" cy="40" rx="34" ry="11" fill="#d7d7d7"/><ellipse cx="60" cy="40" rx="22" ry="6" fill="#bdbdbd"/><path d="M34 44v4M42 46v5M52 47v5M62 47v5M72 46v5M82 44v5" stroke="#7a7a7a" stroke-width="2"/></svg>`,
+  isqueiro: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M56 32c-8-9 2-16 4-26 5 9 12 14 5 26z" fill="${OURO}"/><path d="M58 30c-2-4 1-8 2-11 2 4 5 7 1 11z" fill="#ff8a00"/><rect x="44" y="30" width="32" height="16" rx="3" fill="#c9c9c9"/><circle cx="71" cy="38" r="5" fill="#7a7a7a"/><rect x="42" y="44" width="36" height="62" rx="9" fill="${VERM}"/><rect x="42" y="66" width="36" height="9" fill="${OURO}"/><rect x="42" y="75" width="36" height="9" fill="${VERDE}"/></svg>`,
+  bandeja: `<svg viewBox="0 0 120 120" aria-hidden="true"><g transform="rotate(-10 60 60)"><rect x="14" y="30" width="92" height="62" rx="12" fill="${OURO}"/><rect x="22" y="38" width="76" height="46" rx="7" fill="${PRETO}"/><path d="M22 38l76 46M98 38L22 84" stroke="${OURO}" stroke-width="7"/><path d="M22 38l38 23 38-23zM22 84l38-23 38 23z" fill="${VERDE}"/><path d="M22 38l76 46M98 38L22 84" stroke="${OURO}" stroke-width="7"/></g></svg>`,
+  salgadinho: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M32 18h56l-4 8 6 66-4 8H34l-4-8 6-66z" fill="${VERM}"/><path d="M32 18l5 5 5-5 5 5 5-5 5 5 5-5 5 5 5-5 5 5 5-5 5 5 5-5M30 100l5-5 5 5 5-5 5 5 5-5 5 5 5-5 5 5 5-5 5 5 5-5 5 5" stroke="${PRETO}" stroke-width="2" fill="none"/><circle cx="60" cy="60" r="20" fill="${OURO}"/><path d="M50 66l10-17 10 17z" fill="#e08a00" stroke="${PRETO}" stroke-width="1.5"/><path d="M40 36h40" stroke="${CREME}" stroke-width="5" stroke-linecap="round"/></svg>`,
+  chocolate: `<svg viewBox="0 0 120 120" aria-hidden="true"><g transform="rotate(-12 60 60)"><rect x="32" y="16" width="56" height="88" rx="5" fill="#5a3418"/><path d="M32 38h56M32 60h56M60 16v44" stroke="#3b2210" stroke-width="3"/><rect x="28" y="62" width="64" height="46" rx="4" fill="${VERDE}"/><path d="M28 62l6 6 6-6 6 6 6-6 6 6 6-6 6 6 6-6 6 6 6-6" stroke="${VERDE}" stroke-width="3" fill="none"/><rect x="28" y="76" width="64" height="12" fill="${OURO}"/><path d="M40 82h40" stroke="${PRETO}" stroke-width="4" stroke-linecap="round"/></g></svg>`,
+  refri: `<svg viewBox="0 0 120 120" aria-hidden="true"><path d="M40 28h40l-2 6v62l2 6H40l2-6V34z" fill="${VERM}"/><ellipse cx="60" cy="27" rx="20" ry="5" fill="#d7d7d7"/><ellipse cx="60" cy="27" rx="7" ry="2" fill="#8a8a8a"/><rect x="42" y="52" width="36" height="22" fill="${OURO}"/><path d="M42 63h36" stroke="${VERDE}" stroke-width="6"/><circle cx="50" cy="86" r="3" fill="${CREME}"/><circle cx="58" cy="92" r="2" fill="${CREME}"/><circle cx="68" cy="84" r="2.5" fill="${CREME}"/><path d="M84 20c6 4 6 10 0 14M92 16c9 6 9 16 0 22" stroke="#7fd6ff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>`,
+  cookie: `<svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="48" cy="70" r="30" fill="#c98a44"/><circle cx="80" cy="46" r="24" fill="#dba05a"/><g fill="#3b2210"><circle cx="38" cy="62" r="4"/><circle cx="54" cy="78" r="4.5"/><circle cx="44" cy="86" r="3"/><circle cx="60" cy="60" r="3.5"/><circle cx="74" cy="40" r="3.5"/><circle cx="88" cy="50" r="4"/><circle cx="80" cy="58" r="3"/></g><path d="M22 100h76" stroke="${OURO}" stroke-width="5" stroke-linecap="round"/></svg>`,
+  bala: `<svg viewBox="0 0 120 120" aria-hidden="true"><g transform="rotate(-20 48 50)"><path d="M26 50L10 38v24zM70 50l16-12v24z" fill="${OURO}"/><ellipse cx="48" cy="50" rx="24" ry="16" fill="${VERDE}"/><path d="M38 38c-4 8-4 16 0 24M52 36c-4 9-4 19 0 28" stroke="${CREME}" stroke-width="3" fill="none" opacity=".7"/></g><g transform="rotate(16 74 80)"><path d="M52 80L38 70v20zM96 80l14-10v20z" fill="${VERDE}"/><ellipse cx="74" cy="80" rx="22" ry="15" fill="${VERM}"/><path d="M66 69c-4 7-4 15 0 22M78 67c-4 8-4 18 0 26" stroke="${CREME}" stroke-width="3" fill="none" opacity=".7"/></g></svg>`,
 };
-const folhaSVG = (cor) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C4.5 7 4 16.5 12 22.5c8-6 7.5-15.5 0-21z" fill="${cor}"/><path d="M12 4v18" stroke="rgba(0,0,0,.25)" stroke-width="1.2"/></svg>`;
+const folhaSVG = (cor) => `<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1.5C4.5 7 4 16.5 12 22.5c8-6 7.5-15.5 0-21z" fill="${cor}"/><path d="M12 4v18" stroke="rgba(0,0,0,.35)" stroke-width="1.2"/></svg>`;
+const CORES_RASTA = [VERDE, OURO, VERM, "#3ddc6f", "#ffe766"];
 
 /* ---------- Cálculos ---------- */
 const produto = (id) => PRODUTOS.find((p) => p.id === id);
@@ -202,13 +218,13 @@ function toast(msg) {
 function criarFolhasFundo() {
   if (reduzMovimento) return;
   const box = $("#folhas-fundo");
-  const cores = ["#4a8a3f", "#6fa95e", "#2f4a2a", "#c8734a", "#9cbf7a"];
-  const n = window.innerWidth < 600 ? 12 : 20;
+  const cores = CORES_RASTA;
+  const n = window.innerWidth < 600 ? 14 : 22;
   for (let i = 0; i < n; i++) {
     const f = document.createElement("span");
     f.className = "folha-cai";
     const tam = 16 + Math.random() * 22;
-    f.style.cssText = `left:${Math.random() * 100}%;width:${tam}px;height:${tam}px;--dur:${9 + Math.random() * 10}s;--delay:${-Math.random() * 18}s;--deriva:${(Math.random() * 160 - 80).toFixed(0)}px;--giro:${(Math.random() * 540 - 270).toFixed(0)}deg;opacity:${(0.35 + Math.random() * 0.35).toFixed(2)}`;
+    f.style.cssText = `left:${Math.random() * 100}%;width:${tam}px;height:${tam}px;--dur:${9 + Math.random() * 10}s;--delay:${-Math.random() * 18}s;--deriva:${(Math.random() * 160 - 80).toFixed(0)}px;--giro:${(Math.random() * 540 - 270).toFixed(0)}deg;opacity:${(0.45 + Math.random() * 0.4).toFixed(2)}`;
     f.innerHTML = folhaSVG(cores[i % cores.length]);
     box.appendChild(f);
   }
@@ -216,7 +232,7 @@ function criarFolhasFundo() {
 function confete() {
   if (reduzMovimento || !Element.prototype.animate) return;
   const box = $("#confete");
-  const cores = ["#4a8a3f", "#6fa95e", "#2f4a2a", "#c8734a", "#9cbf7a", "#e0b04f"];
+  const cores = CORES_RASTA;
   const x0 = window.innerWidth / 2, y0 = window.innerHeight * 0.32;
   for (let i = 0; i < 46; i++) {
     const f = document.createElement("span");
@@ -252,26 +268,49 @@ function controleQtd(p) {
 }
 const iconeMais = `<svg viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"/></svg>`;
 
-function renderProdutos() {
-  const lista = $("#lista-produtos");
-  lista.innerHTML = PRODUTOS.map(
-    (p, i) => `
+const ilustracao = (p) => ILUSTRACOES[p.icone] || ILUSTRACOES.combo;
+
+function cardProduto(p, i) {
+  const economia = p.de && p.de > p.preco ? p.de - p.preco : 0;
+  return `
     <li class="produto" data-id="${p.id}" style="--i:${i}">
       <div class="produto-arte">
         ${p.selo ? `<span class="selo">${esc(p.selo)}</span>` : ""}
-        ${ILUSTRACOES[p.icone] || ILUSTRACOES.folha}
+        ${ilustracao(p)}
       </div>
       <div class="produto-corpo">
         <div class="produto-topo">
           <h3 class="produto-nome">${esc(p.nome)}</h3>
-          <p class="produto-preco">${brl(p.preco)}</p>
+          <p class="produto-preco">
+            ${economia ? `<s class="preco-de">${brl(p.de)}</s>` : ""}
+            <span>${brl(p.preco)}</span>
+          </p>
         </div>
+        ${economia ? `<p class="economia">Economize ${brl(economia)}</p>` : ""}
         <p class="produto-desc">${esc(p.descricao)}</p>
         ${p.itens && p.itens.length ? `<ul class="produto-itens">${p.itens.map((t) => `<li>${esc(t)}</li>`).join("")}</ul>` : ""}
         <div class="produto-acao" data-acao="${p.id}">${controleQtd(p)}</div>
       </div>
-    </li>`
-  ).join("");
+    </li>`;
+}
+
+function renderProdutos() {
+  const cats = (typeof CATEGORIAS !== "undefined" && CATEGORIAS.length ? CATEGORIAS : [{ id: "", nome: "Produtos", texto: "", cor: "ouro" }])
+    .map((c) => ({ ...c, itens: PRODUTOS.filter((p) => !c.id || p.categoria === c.id) }))
+    .filter((c) => c.itens.length);
+  $("#nav-categorias").innerHTML = cats
+    .map((c) => `<button type="button" class="chip chip-${esc(c.cor)}" data-ir-cat="${esc(c.id)}">${esc(c.nome)} <span>${c.itens.length}</span></button>`)
+    .join("");
+  $("#lista-produtos").innerHTML = cats
+    .map((c) => `
+      <section class="categoria cor-${esc(c.cor)} ${c.destaque ? "destaque" : "compacta"}" id="cat-${esc(c.id)}">
+        <div class="categoria-topo">
+          <h2 class="secao-titulo">${esc(c.nome)}</h2>
+          ${c.texto ? `<p class="secao-texto">${esc(c.texto)}</p>` : ""}
+        </div>
+        <ul class="lista-produtos">${c.itens.map((p, i) => cardProduto(p, i)).join("")}</ul>
+      </section>`)
+    .join("");
 }
 
 function alterarQtd(id, delta) {
@@ -303,7 +342,7 @@ function renderCarrinho() {
     .map((id) => {
       const p = produto(id);
       return `<li class="item">
-        <div class="item-arte">${ILUSTRACOES[p.icone] || ILUSTRACOES.folha}</div>
+        <div class="item-arte">${ilustracao(p)}</div>
         <div class="item-info">
           <strong class="item-nome">${esc(p.nome)}</strong>
           <span class="item-unit">${brl(p.preco)} cada</span>
@@ -413,6 +452,7 @@ function textoHorario(iso) {
   const dia = new Date(d); dia.setHours(0, 0, 0, 0);
   return `${rotuloDia(dia)} às ${horaTxt(d)}`;
 }
+const textoEnderecoLoja = () => ENDERECO_RETIRADA.trim() || "Combinamos o endereço pelo WhatsApp.";
 const linkMapa = (l) => `https://www.google.com/maps?q=${l.lat.toFixed(6)},${l.lng.toFixed(6)}`;
 
 function atualizarEntrega() {
@@ -533,7 +573,7 @@ const NOMES_PAGAMENTO = { pix: "Pix", cartao: "Cartão (link de pagamento)", cri
 
 function montarMensagem() {
   const linhas = [];
-  linhas.push(`🌿 *Novo pedido — Ervas Medicinais Cap*`);
+  linhas.push(`🇯🇲 *Novo pedido — Ervas Medicinais Cap*`);
   linhas.push(`Pedido: *${estado.numero}*`);
   linhas.push("");
   linhas.push(`*Cliente:* ${estado.nome.trim()}`);
@@ -570,7 +610,7 @@ function renderConfirmacao() {
     .join("");
   const receber =
     estado.modo === "retirada"
-      ? `<dt>Retirada no local</dt><dd>${esc(textoHorario(estado.horario))}<br><small>${esc(ENDERECO_RETIRADA)}</small></dd>`
+      ? `<dt>Retirada no local</dt><dd>${esc(textoHorario(estado.horario))}<br><small>${esc(textoEnderecoLoja())}</small></dd>`
       : `<dt>Entrega</dt><dd>${estado.endereco.trim() ? esc(estado.endereco.trim()) : ""}${estado.localizacao ? `${estado.endereco.trim() ? "<br>" : ""}<a href="${linkMapa(estado.localizacao)}" target="_blank" rel="noopener">📍 Localização enviada</a>` : ""}</dd>`;
   $("#resumo-final").innerHTML = `
     <p class="numero-pedido">Pedido <strong>${esc(estado.numero)}</strong></p>
@@ -648,6 +688,15 @@ function rota() {
 /* ---------- Eventos ---------- */
 function ligarEventos() {
   document.addEventListener("click", (e) => {
+    const cat = e.target.closest("[data-ir-cat]");
+    if (cat) {
+      const alvo = document.getElementById("cat-" + cat.dataset.irCat);
+      if (alvo) {
+        const y = alvo.getBoundingClientRect().top + window.scrollY - ($(".topo").offsetHeight + $(".nav-categorias").offsetHeight + 8);
+        window.scrollTo({ top: y, behavior: reduzMovimento ? "auto" : "smooth" });
+      }
+      return;
+    }
     const t = e.target.closest("[data-add],[data-mais],[data-menos],[data-remover],#btn-tirar-local");
     if (!t) return;
     if (t.dataset.add) alterarQtd(t.dataset.add, 1);
@@ -747,6 +796,27 @@ function configurarPWA() {
   }
 }
 
+/* ---------- Confirmação de idade (18+) ---------- */
+function confirmarIdade() {
+  const tela = $("#idade");
+  let ok = false;
+  try { ok = localStorage.getItem("ervas-cap-18") === "1"; } catch (e) {}
+  if (!CONFIRMAR_IDADE || ok) { tela.hidden = true; return; }
+  tela.hidden = false;
+  document.body.classList.add("travado");
+  $("#idade-sim").focus();
+  $("#idade-sim").addEventListener("click", () => {
+    try { localStorage.setItem("ervas-cap-18", "1"); } catch (e) {}
+    tela.classList.add("saindo");
+    document.body.classList.remove("travado");
+    setTimeout(() => (tela.hidden = true), 350);
+  });
+  $("#idade-nao").addEventListener("click", () => {
+    $("#idade-pergunta").hidden = true;
+    $("#idade-bloqueio").hidden = false;
+  });
+}
+
 /* ---------- Início ---------- */
 function iniciar() {
   carregar();
@@ -756,7 +826,8 @@ function iniciar() {
   $("#faixa-max").textContent = `Máx. ${brl(PEDIDO_MAXIMO)}`;
   $("#faixa-marca").style.left = `${(PEDIDO_MINIMO / PEDIDO_MAXIMO) * 100}%`;
   $("#taxa-entrega-txt").textContent = `Taxa fixa de ${brl(TAXA_ENTREGA)}`;
-  $("#endereco-loja").textContent = ENDERECO_RETIRADA;
+  $("#endereco-loja").textContent = textoEnderecoLoja();
+  confirmarIdade();
   $("#cartao-minimo").textContent = brl(MINIMO_CARTAO);
   $("#ano").textContent = new Date().getFullYear();
 

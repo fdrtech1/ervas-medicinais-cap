@@ -1,6 +1,8 @@
 # 🌿 Ervas Medicinais Cap — Web App (PWA)
 
-Cardápio e pedidos de chás e ervas, feito em HTML, CSS e JavaScript puro.
+Cardápio e pedidos de **tabacaria e larica** (combos, sedas, tabaco, acessórios, doces,
+salgados e bebidas), com tema jamaicano, feito em HTML, CSS e JavaScript puro.
+Ao abrir, o app pede para o cliente confirmar que tem **18 anos ou mais**.
 Não precisa de servidor, banco de dados nem instalação de programas: é só
 subir os arquivos no **GitHub Pages** (gratuito).
 
@@ -17,7 +19,7 @@ paga com **Pix** (QR Code e copia e cola gerados na hora), **cartão** ou **crip
 | `index.html` | Estrutura das telas |
 | `style.css` | Cores, layout e animações |
 | `app.js` | Funcionamento do app. **As configurações ficam no topo deste arquivo.** |
-| `products.js` | Lista de produtos (nome, descrição, preço, ilustração) |
+| `products.js` | Categorias e produtos (nome, descrição, preço, ilustração) |
 | `qrcode.js` | Gera o QR Code do Pix sem depender de internet (não precisa mexer) |
 | `manifest.json` | Nome, cores e ícones para “Adicionar à tela inicial” |
 | `service-worker.js` | Guarda o app no celular para o cardápio abrir offline |
@@ -90,7 +92,8 @@ const WHATSAPP_VENDEDOR = "5511999999999";         // 55 + DDD + número
 const TAXA_ENTREGA = 20.0;
 const PEDIDO_MINIMO = 100.0;
 const PEDIDO_MAXIMO = 1000.0;
-const ENDERECO_RETIRADA = "Rua Exemplo, 123 — Centro";
+const ENDERECO_RETIRADA = "";                     // vazio = "combinamos pelo WhatsApp"
+const CONFIRMAR_IDADE = true;                     // pergunta "tem 18 anos?" ao abrir
 const HORA_ABERTURA = "09:00";
 const HORA_FECHAMENTO = "18:00";
 const DIAS_FUNCIONAMENTO = [1, 2, 3, 4, 5, 6];    // 0 = domingo ... 6 = sábado
@@ -123,29 +126,40 @@ const INTERVALO_HORARIOS_MINUTOS = 15;
 
 ## 🛍️ Como editar produtos e preços
 
-Abra o `products.js`. Cada produto é um bloco assim:
+Abra o `products.js`. No topo ficam as **categorias** (Combos, Tabacaria, Larica)
+e, embaixo, os **produtos**. Cada produto é um bloco assim:
 
 ```js
 {
-  id: "kit-1",
-  nome: "Kit 1",
-  descricao: "Seleção de ervas secas para quem quer conhecer nossos chás.",
-  preco: 100.0,
-  icone: "folha",          // "folha", "ramo" ou "xicara"
-  selo: "Para começar",    // "" para não mostrar
-  itens: ["3 ervas secas selecionadas", "Cartão com modo de preparo"],
+  id: "seda-king-brown",
+  categoria: "tabacaria",          // "combos", "tabacaria" ou "larica"
+  nome: "Seda King Size Brown",
+  descricao: "Livreto de papel natural, tamanho king size.",
+  preco: 6.0,
+  icone: "seda",
+  selo: "",                        // etiqueta no card ("" = nenhuma)
+  itens: [],                       // lista do que vem (usada nos combos)
 },
 ```
 
-- **Preço:** use ponto, não vírgula → `149.9` = R$ 149,90.
+- **Preço:** use ponto, não vírgula → `18.9` = R$ 18,90.
+- **Combos:** o campo `de` é quanto custaria tudo separado; o app mostra
+  riscado e calcula o “Economize R$ …”. Os valores atuais já batem com a soma dos itens.
+- **Ícones disponíveis:** `combo`, `seda`, `tabaco`, `piteira`, `dichavador`,
+  `isqueiro`, `bandeja`, `salgadinho`, `chocolate`, `refri`, `cookie`, `bala`.
 - **Novo produto:** copie um bloco inteiro, cole depois do último, troque o `id`
   (ele não pode se repetir) e não esqueça a **vírgula** entre os blocos.
 - **Remover produto:** apague o bloco inteiro, do `{` até o `},`.
 
-> ⚠️ **Sobre os textos:** os produtos são vendidos como **chás e ervas**.
-> Não escreva que curam, tratam, “ajudam a emagrecer”, “acalmam”, “desincham” etc.
-> Descreva aroma, sabor, quantidade, embalagem e modo de preparo.
-> Os textos de exemplo e os do app já seguem essa regra.
+Os preços iniciais foram baseados em valores reais de tabacarias online e
+supermercados/apps de delivery (nov/2026). **Ajuste para o seu custo e margem.**
+
+> ⚠️ **Regras importantes**
+> - Venda de produtos de tabacaria é **proibida para menores de 18 anos** — por isso
+>   o app pede a confirmação de idade (`CONFIRMAR_IDADE` no `app.js`). Confira também
+>   a idade na entrega/retirada.
+> - O rodapé traz o aviso do Ministério da Saúde exigido para propaganda de tabaco. Não remova.
+> - Não escreva nos produtos promessas de efeito no corpo.
 
 ---
 
@@ -154,7 +168,7 @@ Abra o `products.js`. Cada produto é um bloco assim:
 Toda vez que mudar qualquer arquivo, abra o `service-worker.js` e troque a versão:
 
 ```js
-const VERSAO = "ervas-cap-v1";   // mude para "ervas-cap-v2", depois "v3"...
+const VERSAO = "ervas-cap-v2";   // mude para "ervas-cap-v3", depois "v4"...
 ```
 
 Isso faz o celular dos clientes baixar a versão nova. No GitHub as mudanças
@@ -164,9 +178,9 @@ aparecem no site em 1 a 3 minutos.
 
 ## 🎨 Cores
 
-As cores ficam no topo do `style.css` (variáveis `--verde-folha`, `--musgo`,
-`--bege`, `--terracota`…). Se trocar, mantenha sempre **texto claro em fundo
-escuro e texto escuro em fundo claro**.
+Tema jamaicano: as cores ficam no topo do `style.css` (`--preto`, `--verde`,
+`--ouro`, `--vermelho`…). Se trocar, mantenha sempre **texto claro em fundo
+escuro e texto preto em fundo ouro/verde vivo**.
 
 ---
 
