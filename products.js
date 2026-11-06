@@ -36,17 +36,17 @@ const CATEGORIAS = [
 
 const PRODUTOS = [
   // ---------- COMBOS ----------
-  // Kingston: 34,90 + 3×6,00 + 3,50 + 12,00 + 5,00 + 9,90 + 11,00 + 6,50 + 6,50 = 107,30
+  // Kingston: tabaco 20 g (~15,90) + 3×6,00 + 3,50 + 12,00 + 5,00 + 9,90 + 11,00 + 6,50 + 6,50 = 88,30 (sem desconto: "Economize" não aparece)
   {
     id: "combo-kingston",
     categoria: "combos",
     nome: "Combo Kingston",
     descricao: "O essencial pra enrolar, com uma larica completa junto.",
     preco: 100.0,
-    de: 107.3,
+    de: 88.3,
     icone: "combo",
     selo: "Pra começar",
-    itens: ["Tabaco para enrolar 50 g", "3 sedas King Size Brown", "Piteira de papel + piteira de vidro", "Isqueiro", "Salgadinho, chocolate, cookies e refri lata"],
+    itens: ["Tabaco para enrolar 20 g", "3 sedas King Size Brown", "Piteira de papel + piteira de vidro", "Isqueiro", "Salgadinho, chocolate, cookies e refri lata"],
   },
   // Montego Bay: 35 + 30 + 34,90 + 18,90 + 5×6 + 12 + 2×3,50 + 2×5 + 2×9,90 + 11 + 6,50 + 2×6,50 = 228,10
   {
@@ -60,17 +60,17 @@ const PRODUTOS = [
     selo: "Mais pedido",
     itens: ["Tabaco para enrolar 50 g + 25 g", "5 sedas King Size Brown", "Piteira de vidro + 2 de papel", "Dichavador de metal", "Bandeja de metal", "2 isqueiros", "2 salgadinhos, chocolate, cookies e 2 refris"],
   },
-  // Zion: 35 + 30 + 4×34,90 + 10×6 + 2×12 + 3×3,50 + 3×5 + 4×9,90 + 3×11 + 2×6,50 + 2×7,50 + 6×6,50 = 453,70
+  // Zion: 35 + 30 + 2×34,90 (100 g) + 10×6 + 2×12 + 3×3,50 + 3×5 + 4×9,90 + 3×11 + 2×6,50 + 2×7,50 + 6×6,50 = 383,90 (sem desconto: "Economize" não aparece)
   {
     id: "combo-zion",
     categoria: "combos",
     nome: "Combo Zion",
     descricao: "O kit completo da casa: acessórios, estoque de tabaco e larica de respeito.",
     preco: 400.0,
-    de: 453.7,
+    de: 383.9,
     icone: "combo",
     selo: "Completo",
-    itens: ["4 tabacos para enrolar 50 g", "10 sedas King Size Brown", "2 piteiras de vidro + 3 de papel", "Dichavador de metal", "Bandeja de metal", "3 isqueiros", "4 salgadinhos, 3 chocolates, 2 cookies, 2 balas de goma e 6 refris"],
+    itens: ["Tabaco para enrolar 100 g", "10 sedas King Size Brown", "2 piteiras de vidro + 3 de papel", "Dichavador de metal", "Bandeja de metal", "3 isqueiros", "4 salgadinhos, 3 chocolates, 2 cookies, 2 balas de goma e 6 refris"],
   },
 
   // ---------- TABACARIA ----------
