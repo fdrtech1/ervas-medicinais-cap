@@ -1,0 +1,21 @@
+{
+  "id": "./",
+  "name": "Ervas Medicinais Cap",
+  "short_name": "Ervas Cap",
+  "description": "Chás e ervas selecionadas. Monte seu pedido e envie pelo WhatsApp.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f4ecd8",
+  "theme_color": "#2f4a2a",
+  "categories": ["shopping", "food"],
+  "icons": [
+    { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
